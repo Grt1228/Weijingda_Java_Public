@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.UserInfo" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="student_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gender" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="org_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="university_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="college_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="majors_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="college_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="majors_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="class_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="class_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mobile" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="role" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nick_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="avatar_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, student_id, gender, login_name, student_name, org_code, password, university_name, 
+    college_name, majors_name, college_id, majors_id, class_name, class_id, mobile, email,
+    status, role, openid,nick_name,avatar_url,create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByStudentId" parameterType="string" >
+    delete from user_info
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.UserInfo" >
+    insert into user_info (pk_id, student_id,gender,
+      login_name, student_name, org_code, 
+      password, university_name, college_name, 
+      majors_name, college_id, majors_id, 
+      class_name, class_id, mobile, 
+      email, status, role, 
+      create_time, modified_time,nick_name,openid,avatar_url)
+    values (#{pkId,jdbcType=BIGINT}, #{studentId,jdbcType=VARCHAR} ,#{gender,jdbcType=VARCHAR},
+      #{loginName,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{universityName,jdbcType=VARCHAR}, #{collegeName,jdbcType=VARCHAR}, 
+      #{majorsName,jdbcType=VARCHAR}, #{collegeId,jdbcType=VARCHAR}, #{majorsId,jdbcType=VARCHAR}, 
+      #{className,jdbcType=VARCHAR}, #{classId,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 
+      now(), now(),#{nickName,jdbcType=VARCHAR},#{openid,jdbcType=VARCHAR},#{avatarUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="universityName != null" >
+        university_name,
+      </if>
+      <if test="collegeName != null" >
+        college_name,
+      </if>
+      <if test="majorsName != null" >
+        majors_name,
+      </if>
+      <if test="collegeId != null" >
+        college_id,
+      </if>
+      <if test="majorsId != null" >
+        majors_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="universityName != null" >
+        #{universityName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null" >
+        #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorsName != null" >
+        #{majorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeId != null" >
+        #{collegeId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorsId != null" >
+        #{majorsId,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.UserInfo" >
+    update user_info
+    <set>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="universityName != null" >
+        university_name = #{universityName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null" >
+        college_name = #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorsName != null" >
+        majors_name = #{majorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeId != null" >
+        college_id = #{collegeId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorsId != null" >
+        majors_id = #{majorsId,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null" >
+        class_id = #{classId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.UserInfo" >
+    update user_info
+    set
+      gender = #{gender,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      university_name = #{universityName,jdbcType=VARCHAR},
+      college_name = #{collegeName,jdbcType=VARCHAR},
+      majors_name = #{majorsName,jdbcType=VARCHAR},
+      college_id = #{collegeId,jdbcType=VARCHAR},
+      majors_id = #{majorsId,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_id = #{classId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      nick_name = #{nackName,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </update>
+  <update id="updatePasswordByLoginName" parameterType="map">
+    UPDATE user_info
+    SET password = #{password},modified_time = now()
+    WHERE login_name = #{loginName}
+  </update>
+
+  <select id="checkUsername" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  user_info
+    WHERE  login_name= #{loginName}
+  </select>
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  user_info
+    WHERE  login_name= #{loginName} and password = #{password}
+  </select>
+  <select id="selectAllUserInfo" resultMap="BaseResultMap" parameterType="com.jgsu.vo.UserBackRequest">
+    SELECT <include refid="Base_Column_List"></include>
+    FROM user_info
+    <where>
+      <if test="loginName != null and loginName != ''">
+        login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+      <if test="studentName != null and studentName!=''" >
+        and student_name LIKE "%"#{studentName}"%"
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+
+
+  <!-- 通过loginNameList查询用户微信详细List -->
+  <select id="findWecatInfoListByOpenidList" resultMap="BaseResultMap">
+    SELECT *
+    FROM user_info
+    WHERE openid in
+    <foreach item="item" collection="openIdList"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  <select id="findUserByOpenid" resultMap="BaseResultMap">
+    SELECT *
+    FROM user_info
+    WHERE openid = #{openid,jdbcType=VARCHAR}
+  </select>
+</mapper>

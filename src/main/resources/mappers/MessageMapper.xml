@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.Message" >
+  <constructor >
+    <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    <arg column="message_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="login_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="likedCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="incognito" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+  </constructor>
+</resultMap>
+
+  <resultMap id="BaseResultMapVo" type="com.jgsu.vo.message.MessageResponse" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="message_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nick_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="avatar_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="likedCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="incognito" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, message_id, login_name, openid, content, likedCount, incognito, status, create_time,
+    modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="string" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from message
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.Message" >
+    insert into message (pk_id, message_id, login_name, openid,
+      content, likedCount, incognito, 
+      status, create_time, modified_time
+      )
+    values (#{pkId,jdbcType=BIGINT}, #{messageId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{likedcount,jdbcType=INTEGER}, #{incognito,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="likedcount != null" >
+        likedCount,
+      </if>
+      <if test="incognito != null" >
+        incognito,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="likedcount != null" >
+        #{likedcount,jdbcType=INTEGER},
+      </if>
+      <if test="incognito != null" >
+        #{incognito,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.Message" >
+    update message
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="likedcount != null" >
+        likedCount = #{likedcount,jdbcType=INTEGER},
+      </if>
+      <if test="incognito != null" >
+        incognito = #{incognito,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.Message" >
+    update message
+    set
+      content = #{content,jdbcType=VARCHAR},
+      likedCount = #{likedcount,jdbcType=INTEGER},
+      incognito = #{incognito,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </update>
+
+
+
+  <select id="list" resultMap="BaseResultMapVo" parameterType="com.jgsu.vo.message.MessageRequest">
+    SELECT
+        m.pk_id, m.message_id, m.login_name, m.openid,ui.nick_name, ui.avatar_url,m.content, m.likedCount, m.incognito, m.status, m.create_time,
+        m.modified_time
+    from message m ,user_info ui
+    <where>
+        m.openid = ui.openid
+      <if test="status != null and status!=''" >
+        and m.status = #{status}
+      </if>
+      <if test="loginName != null and loginName!=''" >
+        and m.login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+      <if test="openid != null and openid!=''" >
+        and m.openid = #{openid,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by m.create_time desc
+  </select>
+</mapper>

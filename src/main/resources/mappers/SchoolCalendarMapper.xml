@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.SchoolCalendarMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.SchoolCalendar" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="calendar_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_current_year" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, calendar_id, calendar_date, calendar_url, is_current_year, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from school_calendar
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from school_calendar
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.SchoolCalendar" >
+    insert into school_calendar (pk_id, calendar_id, calendar_date, 
+      calendar_url, is_current_year, create_time, 
+      modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{calendarId,jdbcType=VARCHAR}, #{calendarDate,jdbcType=VARCHAR}, 
+      #{calendarUrl,jdbcType=VARCHAR}, #{isCurrentYear,jdbcType=VARCHAR}, now(),
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.SchoolCalendar" >
+    insert into school_calendar
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="calendarId != null" >
+        calendar_id,
+      </if>
+      <if test="calendarDate != null" >
+        calendar_date,
+      </if>
+      <if test="calendarUrl != null" >
+        calendar_url,
+      </if>
+      <if test="isCurrentYear != null" >
+        is_current_year,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="calendarId != null" >
+        #{calendarId,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarDate != null" >
+        #{calendarDate,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarUrl != null" >
+        #{calendarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCurrentYear != null" >
+        #{isCurrentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.SchoolCalendar" >
+    update school_calendar
+    <set >
+      <if test="calendarId != null" >
+        calendar_id = #{calendarId,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarDate != null" >
+        calendar_date = #{calendarDate,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarUrl != null" >
+        calendar_url = #{calendarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCurrentYear != null" >
+        is_current_year = #{isCurrentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.SchoolCalendar" >
+    update school_calendar
+    set calendar_id = #{calendarId,jdbcType=VARCHAR},
+      calendar_date = #{calendarDate,jdbcType=VARCHAR},
+      calendar_url = #{calendarUrl,jdbcType=VARCHAR},
+      is_current_year = #{isCurrentYear,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getCurrentCalendar" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    FROM school_calendar
+    WHERE is_current_year = #{isCurrentYear,jdbcType=VARCHAR}
+  </select>
+  <select id="getAllCalendar" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"></include>
+    FROM school_calendar
+  </select>
+
+</mapper>

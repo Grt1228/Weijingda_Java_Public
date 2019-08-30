@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jgsu.dao.IdeaMapper">
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.Idea">
+    <constructor>
+      <idArg column="pk_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="idea_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="openid" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="student_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="student_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="idea_detail" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="link_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modified_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk_id, idea_id, openid, student_id, idea_detail, link_type, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from idea
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from idea
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.Idea">
+    insert into idea (pk_id, idea_id, openid, student_id, idea_detail, link_type,
+      create_time, modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{ideaId,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, #{ideaDetail,jdbcType=VARCHAR},
+    #{linkType,jdbcType=VARCHAR},
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.Idea">
+    insert into idea
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        pk_id,
+      </if>
+      <if test="ideaId != null">
+        idea_id,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="ideaId != null">
+        student_id,
+      </if>
+      <if test="ideaDetail != null">
+        idea_detail,
+      </if>
+      <if test="linkType != null">
+        link_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkId != null">
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="ideaId != null">
+        #{ideaId,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="ideaDetail != null">
+        #{ideaDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkType != null">
+        #{linkType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifiedTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.Idea">
+    update idea
+    <set>
+      <if test="ideaId != null">
+        idea_id = #{ideaId,jdbcType=VARCHAR},
+      </if>
+      <if test="ideaDetail != null">
+        idea_detail = #{ideaDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = now(),
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.Idea">
+    update idea
+    set idea_id = #{ideaId,jdbcType=VARCHAR},
+      idea_detail = #{ideaDetail,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getAllIdea" resultMap="BaseResultMap" parameterType="com.jgsu.vo.idea.IdeaRequest">
+    SELECT
+        a.pk_id, a.idea_id, a.openid, a.student_id, a.idea_detail, a.link_type,
+        a.create_time, a.modified_time,b.student_name
+    FROM idea a, user_info b
+    <where>
+        a.openid = b.openid
+      <if test="openid != null and openid!=''" >
+        and openid LIKE "%"#{openid}"%"
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+</mapper>

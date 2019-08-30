@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.PhoneBookMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.PhoneBook" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="phone_book_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone_number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone_level" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, phone_book_id, phone_name, phone_number, phone_level, status, create_time, 
+    modified_time,openid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from phone_book
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from phone_book
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.PhoneBook" >
+    insert into phone_book (pk_id, phone_book_id, phone_name, 
+      phone_number, phone_level, status, 
+      create_time, modified_time,openid)
+    values (#{pkId,jdbcType=BIGINT}, #{phoneBookId,jdbcType=VARCHAR}, #{phoneName,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{phoneLevel,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      now(), now(),#{openid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.PhoneBook" >
+    insert into phone_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="phoneBookId != null" >
+        phone_book_id,
+      </if>
+      <if test="phoneName != null" >
+        phone_name,
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number,
+      </if>
+      <if test="phoneLevel != null" >
+        phone_level,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+      <if test="openid != null" >
+        openid
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="phoneBookId != null" >
+        #{phoneBookId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneName != null" >
+        #{phoneName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneLevel != null" >
+        #{phoneLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.PhoneBook" >
+    update phone_book
+    <set >
+      <!--<if test="phoneBookId != null" >
+        phone_book_id = #{phoneBookId,jdbcType=VARCHAR},
+      </if>-->
+      <if test="phoneName != null" >
+        phone_name = #{phoneName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneLevel != null" >
+        phone_level = #{phoneLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where phone_book_id = #{phoneBookId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.PhoneBook" >
+    update phone_book
+    set phone_book_id = #{phoneBookId,jdbcType=VARCHAR},
+      phone_name = #{phoneName,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      phone_level = #{phoneLevel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now(),
+      openid = #{openid,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="selectByStatus" resultType="com.jgsu.pojo.PhoneBook">
+    SELECT * FROM phone_book WHERE status = #{status}
+  </select>
+  <select id="selectAllLostGood" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from phone_book
+    <where>
+      <if test="status != null and status!=''" >
+       status = #{status}
+      </if>
+      <if test="phoneLevel != null and phoneLevel!=''" >
+        and phone_level = #{phoneLevel,jdbcType=VARCHAR}
+      </if>
+      <if test="phoneName != null and phoneName!=''" >
+        and phone_name LIKE "%"#{phoneName}"%"
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+  <select id="selectYesStatusPhoneBook" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from phone_book
+    WHERE status = #{status} order by modified_time desc
+  </select>
+
+    <update id="updateStatusByLostGoodId">
+    update phone_book
+    set
+      status = #{status,jdbcType=VARCHAR},
+      modified_time = now()
+    where phone_book_id = #{phoneBookId,jdbcType=BIGINT}
+  </update>
+</mapper>

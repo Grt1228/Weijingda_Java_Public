@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.CetMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.Cet" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="cet_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet_number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="university" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet4_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet6_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet6_listen_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet4_listen_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet6_read_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet4_read_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet6_write_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet4_write_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet4_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cet6_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, cet_id, cet_number, student_id, student_name, university, cet4_score, cet6_score, 
+    cet6_listen_score, cet4_listen_score, cet6_read_score, cet4_read_score, cet6_write_score, 
+    cet4_write_score, cet4_status, cet6_status, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cet
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cet
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.Cet" >
+    insert into cet (pk_id, cet_id, cet_number, 
+      student_id, student_name, university, 
+      cet4_score, cet6_score, cet6_listen_score, 
+      cet4_listen_score, cet6_read_score, cet4_read_score, 
+      cet6_write_score, cet4_write_score, cet4_status, 
+      cet6_status, create_time, modified_time
+      )
+    values (#{pkId,jdbcType=BIGINT}, #{cetId,jdbcType=VARCHAR}, #{cetNumber,jdbcType=VARCHAR}, 
+      #{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{university,jdbcType=VARCHAR}, 
+      #{cet4Score,jdbcType=VARCHAR}, #{cet6Score,jdbcType=VARCHAR}, #{cet6ListenScore,jdbcType=VARCHAR}, 
+      #{cet4ListenScore,jdbcType=VARCHAR}, #{cet6ReadScore,jdbcType=VARCHAR}, #{cet4ReadScore,jdbcType=VARCHAR}, 
+      #{cet6WriteScore,jdbcType=VARCHAR}, #{cet4WriteScore,jdbcType=VARCHAR}, #{cet4Status,jdbcType=VARCHAR}, 
+      #{cet6Status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.Cet" >
+    insert into cet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="cetId != null" >
+        cet_id,
+      </if>
+      <if test="cetNumber != null" >
+        cet_number,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="university != null" >
+        university,
+      </if>
+      <if test="cet4Score != null" >
+        cet4_score,
+      </if>
+      <if test="cet6Score != null" >
+        cet6_score,
+      </if>
+      <if test="cet6ListenScore != null" >
+        cet6_listen_score,
+      </if>
+      <if test="cet4ListenScore != null" >
+        cet4_listen_score,
+      </if>
+      <if test="cet6ReadScore != null" >
+        cet6_read_score,
+      </if>
+      <if test="cet4ReadScore != null" >
+        cet4_read_score,
+      </if>
+      <if test="cet6WriteScore != null" >
+        cet6_write_score,
+      </if>
+      <if test="cet4WriteScore != null" >
+        cet4_write_score,
+      </if>
+      <if test="cet4Status != null" >
+        cet4_status,
+      </if>
+      <if test="cet6Status != null" >
+        cet6_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="cetId != null" >
+        #{cetId,jdbcType=VARCHAR},
+      </if>
+      <if test="cetNumber != null" >
+        #{cetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="university != null" >
+        #{university,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4Score != null" >
+        #{cet4Score,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6Score != null" >
+        #{cet6Score,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6ListenScore != null" >
+        #{cet6ListenScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4ListenScore != null" >
+        #{cet4ListenScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6ReadScore != null" >
+        #{cet6ReadScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4ReadScore != null" >
+        #{cet4ReadScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6WriteScore != null" >
+        #{cet6WriteScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4WriteScore != null" >
+        #{cet4WriteScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4Status != null" >
+        #{cet4Status,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6Status != null" >
+        #{cet6Status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.Cet" >
+    update cet
+    <set >
+      <if test="cetId != null" >
+        cet_id = #{cetId,jdbcType=VARCHAR},
+      </if>
+      <if test="cetNumber != null" >
+        cet_number = #{cetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="university != null" >
+        university = #{university,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4Score != null" >
+        cet4_score = #{cet4Score,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6Score != null" >
+        cet6_score = #{cet6Score,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6ListenScore != null" >
+        cet6_listen_score = #{cet6ListenScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4ListenScore != null" >
+        cet4_listen_score = #{cet4ListenScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6ReadScore != null" >
+        cet6_read_score = #{cet6ReadScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4ReadScore != null" >
+        cet4_read_score = #{cet4ReadScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6WriteScore != null" >
+        cet6_write_score = #{cet6WriteScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4WriteScore != null" >
+        cet4_write_score = #{cet4WriteScore,jdbcType=VARCHAR},
+      </if>
+      <if test="cet4Status != null" >
+        cet4_status = #{cet4Status,jdbcType=VARCHAR},
+      </if>
+      <if test="cet6Status != null" >
+        cet6_status = #{cet6Status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.Cet" >
+    update cet
+    set cet_id = #{cetId,jdbcType=VARCHAR},
+      cet_number = #{cetNumber,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      university = #{university,jdbcType=VARCHAR},
+      cet4_score = #{cet4Score,jdbcType=VARCHAR},
+      cet6_score = #{cet6Score,jdbcType=VARCHAR},
+      cet6_listen_score = #{cet6ListenScore,jdbcType=VARCHAR},
+      cet4_listen_score = #{cet4ListenScore,jdbcType=VARCHAR},
+      cet6_read_score = #{cet6ReadScore,jdbcType=VARCHAR},
+      cet4_read_score = #{cet4ReadScore,jdbcType=VARCHAR},
+      cet6_write_score = #{cet6WriteScore,jdbcType=VARCHAR},
+      cet4_write_score = #{cet4WriteScore,jdbcType=VARCHAR},
+      cet4_status = #{cet4Status,jdbcType=VARCHAR},
+      cet6_status = #{cet6Status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+</mapper>

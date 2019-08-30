@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.CourseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.CourseInfo" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="course_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_start_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_teacher" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_week" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_class" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_coordinate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, course_id, course_code, course_start_code, login_name, student_name, course_name, 
+    course_teacher, course_time, course_week, course_place, course_class, course_coordinate, 
+    create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from course_info
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from course_info
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.CourseInfo" >
+    insert into course_info (pk_id, course_id, course_code, 
+      course_start_code, login_name, student_name, 
+      course_name, course_teacher, course_time, 
+      course_week, course_place, course_class, 
+      course_coordinate, create_time, modified_time
+      )
+    values (#{pkId,jdbcType=BIGINT}, #{courseId,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}, 
+      #{courseStartCode,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, 
+      #{courseName,jdbcType=VARCHAR}, #{courseTeacher,jdbcType=VARCHAR}, #{courseTime,jdbcType=VARCHAR}, 
+      #{courseWeek,jdbcType=VARCHAR}, #{coursePlace,jdbcType=VARCHAR}, #{courseClass,jdbcType=VARCHAR}, 
+      #{courseCoordinate,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.CourseInfo" >
+    insert into course_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseCode != null" >
+        course_code,
+      </if>
+      <if test="courseStartCode != null" >
+        course_start_code,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="courseTeacher != null" >
+        course_teacher,
+      </if>
+      <if test="courseTime != null" >
+        course_time,
+      </if>
+      <if test="courseWeek != null" >
+        course_week,
+      </if>
+      <if test="coursePlace != null" >
+        course_place,
+      </if>
+      <if test="courseClass != null" >
+        course_class,
+      </if>
+      <if test="courseCoordinate != null" >
+        course_coordinate,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseStartCode != null" >
+        #{courseStartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTeacher != null" >
+        #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null" >
+        #{courseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseWeek != null" >
+        #{courseWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="coursePlace != null" >
+        #{coursePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="courseClass != null" >
+        #{courseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCoordinate != null" >
+        #{courseCoordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.CourseInfo" >
+    update course_info
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        course_code = #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseStartCode != null" >
+        course_start_code = #{courseStartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTeacher != null" >
+        course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null" >
+        course_time = #{courseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseWeek != null" >
+        course_week = #{courseWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="coursePlace != null" >
+        course_place = #{coursePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="courseClass != null" >
+        course_class = #{courseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCoordinate != null" >
+        course_coordinate = #{courseCoordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.CourseInfo" >
+    update course_info
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      course_code = #{courseCode,jdbcType=VARCHAR},
+      course_start_code = #{courseStartCode,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      course_time = #{courseTime,jdbcType=VARCHAR},
+      course_week = #{courseWeek,jdbcType=VARCHAR},
+      course_place = #{coursePlace,jdbcType=VARCHAR},
+      course_class = #{courseClass,jdbcType=VARCHAR},
+      course_coordinate = #{courseCoordinate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <select id="selectCourseListByLoginName" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM course_info
+    WHERE login_name = #{loginName,jdbcType=VARCHAR}
+  </select>
+</mapper>

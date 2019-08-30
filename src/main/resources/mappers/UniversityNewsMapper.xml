@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.UniversityNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.UniversityNews" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="new_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="new_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="new_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="new_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="new_creater" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="new_detail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="new_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="look_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="image_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="image_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, new_id, new_title, new_type, new_date, new_creater, new_detail, new_status, 
+    look_num, image_id,image_url,create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from university_news
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from university_news
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.UniversityNews" >
+    insert into university_news (pk_id, new_id, new_title, 
+      new_type, new_date, new_creater, 
+      new_detail, new_status, look_num, image_id,image_url,
+      create_time, modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{newId,jdbcType=VARCHAR}, #{newTitle,jdbcType=VARCHAR}, 
+      #{newType,jdbcType=VARCHAR}, #{newDate,jdbcType=VARCHAR}, #{newCreater,jdbcType=VARCHAR}, 
+      #{newDetail,jdbcType=VARCHAR}, #{newStatus,jdbcType=VARCHAR}, #{lookNum,jdbcType=INTEGER}, #{imageId,jdbcType=VARCHAR},
+      #{imageUrl,jdbcType=VARCHAR},
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.UniversityNews" >
+    insert into university_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="newId != null" >
+        new_id,
+      </if>
+      <if test="newTitle != null" >
+        new_title,
+      </if>
+      <if test="newType != null" >
+        new_type,
+      </if>
+      <if test="newDate != null" >
+        new_date,
+      </if>
+      <if test="newCreater != null" >
+        new_creater,
+      </if>
+      <if test="newDetail != null" >
+        new_detail,
+      </if>
+      <if test="newStatus != null" >
+        new_status,
+      </if>
+      <if test="lookNum != null" >
+        look_num,
+      </if>
+      <if test="imageId != null" >
+        image_id,
+      </if>
+      <if test="image_url != null" >
+        image_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="newId != null" >
+        #{newId,jdbcType=VARCHAR},
+      </if>
+      <if test="newTitle != null" >
+        #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newType != null" >
+        #{newType,jdbcType=VARCHAR},
+      </if>
+      <if test="newDate != null" >
+        #{newDate,jdbcType=VARCHAR},
+      </if>
+      <if test="newCreater != null" >
+        #{newCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="newDetail != null" >
+        #{newDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="newStatus != null" >
+        #{newStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lookNum != null" >
+        #{lookNum,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null" >
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.UniversityNews" >
+    update university_news
+    <set >
+      <if test="newTitle != null" >
+        new_title = #{newTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newType != null" >
+        new_type = #{newType,jdbcType=VARCHAR},
+      </if>
+      <if test="newDate != null" >
+        new_date = #{newDate,jdbcType=VARCHAR},
+      </if>
+      <if test="newCreater != null" >
+        new_creater = #{newCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="newDetail != null" >
+        new_detail = #{newDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="newStatus != null" >
+        new_status = #{newStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lookNum != null" >
+        look_num = #{lookNum,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null" >
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+        modified_time = now()
+    </set>
+    where new_id = #{newId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.UniversityNews" >
+    update university_news
+    set new_id = #{newId,jdbcType=VARCHAR},
+      new_title = #{newTitle,jdbcType=VARCHAR},
+      new_type = #{newType,jdbcType=VARCHAR},
+      new_date = #{newDate,jdbcType=VARCHAR},
+      new_creater = #{newCreater,jdbcType=VARCHAR},
+      new_detail = #{newDetail,jdbcType=VARCHAR},
+      new_status = #{newStatus,jdbcType=VARCHAR},
+      look_num = #{lookNum,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectAllNews" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from university_news
+    <where>
+      <if test="newStatus != null and newStatus!=''" >
+        new_status = #{newStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="newCreater != null and newCreater!=''" >
+        and new_creater LIKE "%"#{newCreater}"%"
+      </if>
+      <if test="newType != null and newType!=''" >
+        and new_type = #{newType,jdbcType=VARCHAR}
+      </if>
+      <if test="newTitle != null and newTitle!=''" >
+        and new_title LIKE "%"#{newTitle}"%"
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+  <select id="selectYesStatusNews" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from university_news
+    WHERE new_status = #{status} order by modified_time desc
+  </select>
+</mapper>

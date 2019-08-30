@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.AppImageMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.AppImage" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="image_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="image_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="image_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="image_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sort_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, image_id,image_name, image_url, status, image_type,sort_num, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_image
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_image
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.AppImage" >
+    insert into app_image (pk_id, image_id,image_name, image_url,
+      status, image_type, sort_num,create_time,
+      modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{imageId,jdbcType=VARCHAR},#{imageName,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{imageType,jdbcType=VARCHAR}, #{sortNum},now(),
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.AppImage" >
+    insert into app_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="imageId != null" >
+        image_id,
+      </if>
+      <if test="imageName != null" >
+        image_name,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="imageType != null" >
+        image_type,
+      </if>
+      <if test="sortNum != null" >
+        sort_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="imageId != null" >
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null" >
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="imageType != null" >
+        #{imageType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.AppImage" >
+    update app_image
+    <set>
+      <if test="imageName != null" >
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="imageType != null" >
+        image_type = #{imageType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        sort_num = #{sortNum},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </set>
+    where image_id = #{imageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.AppImage" >
+    update app_image
+    set
+      image_name = #{imageName,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      image_type = #{imageType,jdbcType=VARCHAR},
+      sort_num = #{sortNum},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where image_id = #{imageId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectImage" resultMap="BaseResultMap" parameterType="com.jgsu.vo.ImageRequest">
+    select <include refid="Base_Column_List"></include>
+    from app_image
+    <where>
+      <if test="status != null and status!=''" >
+        status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="imageType != null and imageType!=''" >
+        and image_type = #{imageType,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by sort_num asc
+  </select>
+  <select id="backImageList" resultMap="BaseResultMap" parameterType="com.jgsu.vo.ImageRequest">
+    select <include refid="Base_Column_List"></include>
+    from app_image
+    <where>
+      <if test="status != null and status!=''" >
+        status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="imageType != null and imageType!=''" >
+        and image_type = #{imageType,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+</mapper>

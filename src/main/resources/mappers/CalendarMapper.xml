@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.CalendarMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.Calendar" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="calendar_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_year" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_month" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_day" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="calendar_info" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_current_year" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, calendar_id, calendar_date, calendar_type, calendar_year, calendar_month, 
+    calendar_day, calendar_title, calendar_info, is_current_year, create_time, modified_time,status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from calendar
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from calendar
+    where calendar_id = #{CalendarId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.Calendar" >
+    insert into calendar (pk_id, calendar_id, calendar_date, 
+      calendar_type, calendar_year, calendar_month, 
+      calendar_day, calendar_title, calendar_info, 
+      is_current_year, create_time, modified_time,status
+      )
+    values (#{pkId,jdbcType=BIGINT}, #{calendarId,jdbcType=VARCHAR}, #{calendarDate,jdbcType=VARCHAR}, 
+      #{calendarType,jdbcType=VARCHAR}, #{calendarYear,jdbcType=VARCHAR}, #{calendarMonth,jdbcType=VARCHAR}, 
+      #{calendarDay,jdbcType=VARCHAR}, #{calendarTitle,jdbcType=VARCHAR}, #{calendarInfo,jdbcType=VARCHAR}, 
+      #{isCurrentYear,jdbcType=VARCHAR}, now(), now(),#{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.Calendar" >
+    insert into calendar
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="calendarId != null" >
+        calendar_id,
+      </if>
+      <if test="calendarDate != null" >
+        calendar_date,
+      </if>
+      <if test="calendarType != null" >
+        calendar_type,
+      </if>
+      <if test="calendarYear != null" >
+        calendar_year,
+      </if>
+      <if test="calendarMonth != null" >
+        calendar_month,
+      </if>
+      <if test="calendarDay != null" >
+        calendar_day,
+      </if>
+      <if test="calendarTitle != null" >
+        calendar_title,
+      </if>
+      <if test="calendarInfo != null" >
+        calendar_info,
+      </if>
+      <if test="isCurrentYear != null" >
+        is_current_year,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="calendarId != null" >
+        #{calendarId,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarDate != null" >
+        #{calendarDate,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarType != null" >
+        #{calendarType,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarYear != null" >
+        #{calendarYear,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarMonth != null" >
+        #{calendarMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarDay != null" >
+        #{calendarDay,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarTitle != null" >
+        #{calendarTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarInfo != null" >
+        #{calendarInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="isCurrentYear != null" >
+        #{isCurrentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now()
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.Calendar" >
+    update calendar
+    <set >
+      <if test="calendarDate != null" >
+        calendar_date = #{calendarDate,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarType != null" >
+        calendar_type = #{calendarType,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarYear != null" >
+        calendar_year = #{calendarYear,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarMonth != null" >
+        calendar_month = #{calendarMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarDay != null" >
+        calendar_day = #{calendarDay,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarTitle != null" >
+        calendar_title = #{calendarTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="calendarInfo != null" >
+        calendar_info = #{calendarInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="isCurrentYear != null" >
+        is_current_year = #{isCurrentYear,jdbcType=VARCHAR},
+      </if>
+
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </set>
+    where calendar_id = #{calendarId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.Calendar" >
+    update calendar
+    set
+      calendar_date = #{calendarDate,jdbcType=VARCHAR},
+      calendar_type = #{calendarType,jdbcType=VARCHAR},
+      calendar_year = #{calendarYear,jdbcType=VARCHAR},
+      calendar_month = #{calendarMonth,jdbcType=VARCHAR},
+      calendar_day = #{calendarDay,jdbcType=VARCHAR},
+      calendar_title = #{calendarTitle,jdbcType=VARCHAR},
+      calendar_info = #{calendarInfo,jdbcType=VARCHAR},
+      is_current_year = #{isCurrentYear,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      modified_time = now()
+    where calendar_id = #{calendarId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="list" resultMap="BaseResultMap" parameterType="com.jgsu.vo.CalendarRequest">
+    select <include refid="Base_Column_List"></include>
+    from calendar
+    <where>
+      <if test="calendarId != null and calendarId!=''" >
+        calendar_id = #{calendarId,jdbcType=VARCHAR}
+      </if>
+      <if test="calendarDate != null and calendarDate!=''" >
+        and calendar_date = #{calendarDate,jdbcType=VARCHAR}
+      </if>
+      <if test="calendarType != null and calendarType!=''" >
+        and calendar_type = #{calendarType,jdbcType=VARCHAR}
+      </if>
+      <if test="calendarYear != null and calendarYear!=''" >
+        and calendar_year = #{calendarYear,jdbcType=VARCHAR}
+      </if>
+      <if test="calendarMonth != null and calendarMonth!=''" >
+        and calendar_month = #{calendarMonth,jdbcType=VARCHAR}
+      </if>
+      <if test="calendarDay != null and calendarDay!=''" >
+        and calendar_day = #{calendarDay,jdbcType=VARCHAR}
+      </if>
+      <if test="isCurrentYear != null and isCurrentYear!=''" >
+        and is_current_year = #{isCurrentYear,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null and status!=''" >
+        and status = #{status,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by create_time
+  </select>
+
+
+  <insert id="insertBatch" useGeneratedKeys="true">
+    insert into calendar ( pk_id,calendar_id, calendar_date,
+    calendar_year, calendar_month,
+    calendar_day,  calendar_info,status,
+     create_time, modified_time
+    ) values
+    <foreach item="item" collection="list" separator=",">
+      (#{item.pkId,jdbcType=BIGINT},#{item.calendarId},#{item.calendarDate}, #{item.calendarYear}, #{item.calendarMonth}, #{item.calendarDay}
+      , #{item.calendarInfo},#{item.status},now(),now())
+    </foreach>
+  </insert>
+</mapper>

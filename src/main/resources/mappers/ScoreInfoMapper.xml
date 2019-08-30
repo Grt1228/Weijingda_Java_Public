@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.ScoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.ScoreInfo" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="score_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_property" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="course_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="test_property" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="test_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="repair_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="learning_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="hours" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="count_credit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="count_hours" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="count_course" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="count_fail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="must_credit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="major_elective_credit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="public_elective_credit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="avg_score_point" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, score_id, student_id, login_name, student_name, course_id, course_name, course_property, 
+    course_type, test_property, test_type, repair_time, learning_time, score, credit, 
+    hours, count_credit, count_hours, count_course, count_fail, must_credit, major_elective_credit, 
+    public_elective_credit, avg_score_point, status, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from score_info
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from score_info
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.ScoreInfo" >
+    insert into score_info (pk_id, score_id, student_id, 
+      login_name, student_name, course_id, 
+      course_name, course_property, course_type, 
+      test_property, test_type, repair_time, 
+      learning_time, score, credit, 
+      hours, count_credit, count_hours, 
+      count_course, count_fail, must_credit, 
+      major_elective_credit, public_elective_credit, 
+      avg_score_point, status, create_time, 
+      modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{scoreId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, 
+      #{loginName,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, 
+      #{courseName,jdbcType=VARCHAR}, #{courseProperty,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, 
+      #{testProperty,jdbcType=VARCHAR}, #{testType,jdbcType=VARCHAR}, #{repairTime,jdbcType=VARCHAR}, 
+      #{learningTime,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, 
+      #{hours,jdbcType=VARCHAR}, #{countCredit,jdbcType=VARCHAR}, #{countHours,jdbcType=VARCHAR}, 
+      #{countCourse,jdbcType=VARCHAR}, #{countFail,jdbcType=VARCHAR}, #{mustCredit,jdbcType=VARCHAR}, 
+      #{majorElectiveCredit,jdbcType=VARCHAR}, #{publicElectiveCredit,jdbcType=VARCHAR}, 
+      #{avgScorePoint,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, now(),
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.ScoreInfo" >
+    insert into score_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="scoreId != null" >
+        score_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="courseProperty != null" >
+        course_property,
+      </if>
+      <if test="courseType != null" >
+        course_type,
+      </if>
+      <if test="testProperty != null" >
+        test_property,
+      </if>
+      <if test="testType != null" >
+        test_type,
+      </if>
+      <if test="repairTime != null" >
+        repair_time,
+      </if>
+      <if test="learningTime != null" >
+        learning_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="hours != null" >
+        hours,
+      </if>
+      <if test="countCredit != null" >
+        count_credit,
+      </if>
+      <if test="countHours != null" >
+        count_hours,
+      </if>
+      <if test="countCourse != null" >
+        count_course,
+      </if>
+      <if test="countFail != null" >
+        count_fail,
+      </if>
+      <if test="mustCredit != null" >
+        must_credit,
+      </if>
+      <if test="majorElectiveCredit != null" >
+        major_elective_credit,
+      </if>
+      <if test="publicElectiveCredit != null" >
+        public_elective_credit,
+      </if>
+      <if test="avgScorePoint != null" >
+        avg_score_point,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="scoreId != null" >
+        #{scoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseProperty != null" >
+        #{courseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null" >
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="testProperty != null" >
+        #{testProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="testType != null" >
+        #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="repairTime != null" >
+        #{repairTime,jdbcType=VARCHAR},
+      </if>
+      <if test="learningTime != null" >
+        #{learningTime,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="hours != null" >
+        #{hours,jdbcType=VARCHAR},
+      </if>
+      <if test="countCredit != null" >
+        #{countCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="countHours != null" >
+        #{countHours,jdbcType=VARCHAR},
+      </if>
+      <if test="countCourse != null" >
+        #{countCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="countFail != null" >
+        #{countFail,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCredit != null" >
+        #{mustCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="majorElectiveCredit != null" >
+        #{majorElectiveCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="publicElectiveCredit != null" >
+        #{publicElectiveCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="avgScorePoint != null" >
+        #{avgScorePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.ScoreInfo" >
+    update score_info
+    <set >
+      <if test="scoreId != null" >
+        score_id = #{scoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseProperty != null" >
+        course_property = #{courseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null" >
+        course_type = #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="testProperty != null" >
+        test_property = #{testProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="testType != null" >
+        test_type = #{testType,jdbcType=VARCHAR},
+      </if>
+      <if test="repairTime != null" >
+        repair_time = #{repairTime,jdbcType=VARCHAR},
+      </if>
+      <if test="learningTime != null" >
+        learning_time = #{learningTime,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="hours != null" >
+        hours = #{hours,jdbcType=VARCHAR},
+      </if>
+      <if test="countCredit != null" >
+        count_credit = #{countCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="countHours != null" >
+        count_hours = #{countHours,jdbcType=VARCHAR},
+      </if>
+      <if test="countCourse != null" >
+        count_course = #{countCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="countFail != null" >
+        count_fail = #{countFail,jdbcType=VARCHAR},
+      </if>
+      <if test="mustCredit != null" >
+        must_credit = #{mustCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="majorElectiveCredit != null" >
+        major_elective_credit = #{majorElectiveCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="publicElectiveCredit != null" >
+        public_elective_credit = #{publicElectiveCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="avgScorePoint != null" >
+        avg_score_point = #{avgScorePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.ScoreInfo" >
+    update score_info
+    set score_id = #{scoreId,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR},
+      course_property = #{courseProperty,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      test_property = #{testProperty,jdbcType=VARCHAR},
+      test_type = #{testType,jdbcType=VARCHAR},
+      repair_time = #{repairTime,jdbcType=VARCHAR},
+      learning_time = #{learningTime,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=VARCHAR},
+      hours = #{hours,jdbcType=VARCHAR},
+      count_credit = #{countCredit,jdbcType=VARCHAR},
+      count_hours = #{countHours,jdbcType=VARCHAR},
+      count_course = #{countCourse,jdbcType=VARCHAR},
+      count_fail = #{countFail,jdbcType=VARCHAR},
+      must_credit = #{mustCredit,jdbcType=VARCHAR},
+      major_elective_credit = #{majorElectiveCredit,jdbcType=VARCHAR},
+      public_elective_credit = #{publicElectiveCredit,jdbcType=VARCHAR},
+      avg_score_point = #{avgScorePoint,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+
+  <select id="checkScore" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"></include>
+    FROM  score_info
+    WHERE  student_id= #{studentId}
+  </select>
+
+  <insert id="insertScoreList">
+      insert into score_info ( score_id, student_id,
+      login_name, student_name, course_id,
+      course_name, course_property, course_type,
+      test_property, test_type, repair_time,
+      learning_time, score, credit,
+      hours, count_credit, count_hours,
+      count_course, count_fail, must_credit,
+      major_elective_credit, public_elective_credit,
+      avg_score_point, status, create_time,
+      modified_time) values
+      <foreach item="item" collection="scoreList" separator=",">
+        (#{item.scoreId,jdbcType=VARCHAR}, #{item.studentId,jdbcType=VARCHAR},
+        #{item.loginName,jdbcType=VARCHAR}, #{item.studentName,jdbcType=VARCHAR}, #{item.courseId,jdbcType=VARCHAR},
+        #{item.courseName,jdbcType=VARCHAR}, #{item.courseProperty,jdbcType=VARCHAR}, #{item.courseType,jdbcType=VARCHAR},
+        #{item.testProperty,jdbcType=VARCHAR}, #{item.testType,jdbcType=VARCHAR}, #{item.repairTime,jdbcType=VARCHAR},
+        #{item.learningTime,jdbcType=VARCHAR}, #{item.score,jdbcType=VARCHAR}, #{item.credit,jdbcType=VARCHAR},
+        #{item.hours,jdbcType=VARCHAR}, #{item.countCredit,jdbcType=VARCHAR}, #{item.countHours,jdbcType=VARCHAR},
+        #{item.countCourse,jdbcType=VARCHAR}, #{item.countFail,jdbcType=VARCHAR}, #{item.mustCredit,jdbcType=VARCHAR},
+        #{item.majorElectiveCredit,jdbcType=VARCHAR}, #{item.publicElectiveCredit,jdbcType=VARCHAR},
+        #{item.avgScorePoint,jdbcType=VARCHAR}, #{item.status,jdbcType=VARCHAR}, now(),
+        now())
+      </foreach>
+
+
+  </insert>
+  <select id="selectAllUserScoreInfo" resultMap="BaseResultMap" parameterType="com.jgsu.vo.UserBackRequest">
+    SELECT <include refid="Base_Column_List"></include>
+    FROM score_info
+    <where>
+      <if test="loginName != null and loginName != ''">
+        login_name = #{loginName,jdbcType=VARCHAR}
+      </if>
+      <if test="studentName != null and studentName!=''" >
+        and student_name LIKE "%"#{studentName}"%"
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+  <delete id="deleteByLoginName" >
+    delete from score_info
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </delete>
+</mapper>

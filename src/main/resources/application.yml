@@ -1,0 +1,30 @@
+server:
+  port: 8888
+  ssl:
+    key-store: classpath:lychiyu.com.jks
+    key-store-password:
+    keyStoreType: JKS
+spring:
+  datasource:
+    name: test
+    url: jdbc:mysql:///jgsu?characterEncoding=UTF-8
+    username: root
+    password:
+    driver-class-name: com.mysql.jdbc.Driver
+    maxActive: 50
+    initialSize: 20
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.jgsu.pojo
+logging:
+  config: classpath:logback-spring.xml

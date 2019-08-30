@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.MapPointMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.MapPoint" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="map_point_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_point_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_point_longitude" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_point_latitude" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_point_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="point_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sort" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_group_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_group_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, map_point_id, map_point_name, map_point_longitude, map_point_latitude, map_point_desc, 
+    point_type, sort, map_group_id, map_group_name, status, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from map_point
+    where map_point_id = #{mapPointId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from map_point
+    where map_point_id = #{mapPointId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.MapPoint" >
+    insert into map_point (pk_id, map_point_id, map_point_name, 
+      map_point_longitude, map_point_latitude, map_point_desc, 
+      point_type, sort, map_group_id, 
+      map_group_name, status, create_time, 
+      modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{mapPointId,jdbcType=VARCHAR}, #{mapPointName,jdbcType=VARCHAR}, 
+      #{mapPointLongitude,jdbcType=VARCHAR}, #{mapPointLatitude,jdbcType=VARCHAR}, #{mapPointDesc,jdbcType=VARCHAR}, 
+      #{pointType,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}, #{mapGroupId,jdbcType=VARCHAR}, 
+      #{mapGroupName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, now(),
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.MapPoint" >
+    insert into map_point
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="mapPointId != null" >
+        map_point_id,
+      </if>
+      <if test="mapPointName != null" >
+        map_point_name,
+      </if>
+      <if test="mapPointLongitude != null" >
+        map_point_longitude,
+      </if>
+      <if test="mapPointLatitude != null" >
+        map_point_latitude,
+      </if>
+      <if test="mapPointDesc != null" >
+        map_point_desc,
+      </if>
+      <if test="pointType != null" >
+        point_type,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="mapGroupId != null" >
+        map_group_id,
+      </if>
+      <if test="mapGroupName != null" >
+        map_group_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="mapPointId != null" >
+        #{mapPointId,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointName != null" >
+        #{mapPointName,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointLongitude != null" >
+        #{mapPointLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointLatitude != null" >
+        #{mapPointLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointDesc != null" >
+        #{mapPointDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pointType != null" >
+        #{pointType,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupId != null" >
+        #{mapGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupName != null" >
+        #{mapGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.MapPoint" >
+    update map_point
+    <set >
+      <if test="mapPointName != null" >
+        map_point_name = #{mapPointName,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointLongitude != null" >
+        map_point_longitude = #{mapPointLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointLatitude != null" >
+        map_point_latitude = #{mapPointLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPointDesc != null" >
+        map_point_desc = #{mapPointDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pointType != null" >
+        point_type = #{pointType,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupId != null" >
+        map_group_id = #{mapGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupName != null" >
+        map_group_name = #{mapGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where map_point_id = #{mapPointId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.MapPoint" >
+    update map_point
+    set
+      map_point_name = #{mapPointName,jdbcType=VARCHAR},
+      map_point_longitude = #{mapPointLongitude,jdbcType=VARCHAR},
+      map_point_latitude = #{mapPointLatitude,jdbcType=VARCHAR},
+      map_point_desc = #{mapPointDesc,jdbcType=VARCHAR},
+      point_type = #{pointType,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=VARCHAR},
+      map_group_id = #{mapGroupId,jdbcType=VARCHAR},
+      map_group_name = #{mapGroupName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      now()
+    where map_point_id = #{mapPointId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="list" resultMap="BaseResultMap" parameterType="com.jgsu.vo.map.MapRequest">
+    SELECT <include refid="Base_Column_List"></include>
+    from map_point
+    <where>
+      <if test="status != null and status != ''" >
+        status = #{status}
+      </if>
+      <if test="mapPointId != null and mapPointId != ''" >
+        and map_point_id = #{mapPointId,jdbcType=VARCHAR}1
+      </if>
+      <if test="pointType != null and pointType != ''" >
+        and point_type = #{pointType,jdbcType=VARCHAR}
+      </if>
+      <if test="mapGroupId != null and mapGroupId != ''" >
+        and map_group_id = #{mapGroupId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+</mapper>

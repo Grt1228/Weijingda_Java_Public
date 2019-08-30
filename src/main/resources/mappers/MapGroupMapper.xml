@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.MapGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.MapGroup" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="map_group_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_group_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="map_group_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, map_group_id, map_group_name, map_group_desc, status, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from map_group
+    where map_group_id = #{mapGroupId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from map_group
+    where map_group_id = #{mapGroupId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.MapGroup" >
+    insert into map_group (pk_id, map_group_id, map_group_name, 
+      map_group_desc, status, create_time, 
+      modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{mapGroupId,jdbcType=VARCHAR}, #{mapGroupName,jdbcType=VARCHAR}, 
+      #{mapGroupDesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, now(),
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.MapGroup" >
+    insert into map_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="mapGroupId != null" >
+        map_group_id,
+      </if>
+      <if test="mapGroupName != null" >
+        map_group_name,
+      </if>
+      <if test="mapGroupDesc != null" >
+        map_group_desc,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="mapGroupId != null" >
+        #{mapGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupName != null" >
+        #{mapGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupDesc != null" >
+        #{mapGroupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.MapGroup" >
+    update map_group
+    <set >
+      <if test="mapGroupName != null" >
+        map_group_name = #{mapGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="mapGroupDesc != null" >
+        map_group_desc = #{mapGroupDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where map_group_id = #{mapGroupId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.MapGroup" >
+    update map_group
+    set
+      map_group_name = #{mapGroupName,jdbcType=VARCHAR},
+      map_group_desc = #{mapGroupDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where map_group_id = #{mapGroupId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="list" resultMap="BaseResultMap" parameterType="com.jgsu.vo.map.MapRequest">
+    SELECT <include refid="Base_Column_List"></include>
+    from map_group
+    <where>
+      <if test="status != null and status != ''" >
+        status = #{status}
+      </if>
+    </where>
+    order by modified_time desc
+  </select>
+</mapper>

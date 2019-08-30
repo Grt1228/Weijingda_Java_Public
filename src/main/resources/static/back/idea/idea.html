@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.ojs/JQuery-zTree-v3.5.15tml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户反馈</title>
+    <link rel="stylesheet" type="text/css" href="../../css/default.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.3.5/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.3.5/themes/icon.css" />
+    <script type="text/javascript" src="../../js/jquery-easyui-1.3.5/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../js/extends.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+
+</head>
+<body class="easyui-layout" >
+<div id="body" region="center" >
+    <!-- 数据表格区域 -->
+    <table id="ideaList" class="easyui-datagrid" style="width:400px;height:250px"
+           data-options="fitColumns:true,singleSelect:true,rownumbers:true,showPageList:false,pagination:true">
+        <thead>
+        <tr>
+            <th data-options="field:'ideaId',width:100,halign:'center',align:'center'">记录id</th>
+            <th data-options="field:'loginName',width:100,halign:'center',align:'center'">反馈人</th>
+            <th data-options="field:'ideaDetail',width:200,halign:'center',align:'center',hidden:true">反馈详情</th>
+            <th data-options="field:'createTime',width:80,halign:'center',align:'center'">反馈时间</th>
+            <th data-options="field:'opera',width:50,halign:'center',align:'center',formatter:opera">操作</th>
+        </tr>
+        </thead>
+    </table>
+
+
+    <div id="detailDlg" class="easyui-dialog" title="详情" style="width:400px;height:220px;padding:10px" data-options="closed:true">
+        <div class="content">
+            <form id="detailForm">
+                <td width="80" align="right">反馈详情：</td>
+                <td width="200">
+                    <textarea name="ideaDetail" id="ideaDetail" style="width:300px;height:100px"></textarea>
+                </td>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#ideaList").datagrid({
+            height:$("#body").height()-$('#search_area').height()-5,
+            width:$("#body").width(),
+            idField:'ideaId',
+            url:"/back/idea/list.do",
+            onLoadSuccess:function (data) {
+                //goLogin(data);
+                if(data.status=="10"){
+                    $.messager.alert('提示','登陆过期，重新登陆!','warning',function(r){
+                        if (true){
+                            window.location.href="/login.html";
+                        }
+                    });
+                }
+            }
+        });
+    })
+
+    function opera(value, row, index) {
+        return '<a href="#" onclick="detail('+index+')">反馈详情</a>';
+    }
+
+    function detail(index) {
+        var rows = $('#ideaList').datagrid('getRows');
+        var Obj=rows[index];
+        $('#detailDlg').dialog('open');
+        loadDataToForm(Obj);
+    }
+    function loadDataToForm(Obj) {
+        $("#detailForm").form("load",{
+            ideaDetail:Obj.ideaDetail
+        });
+    }
+</script>
+</body>
+</html>

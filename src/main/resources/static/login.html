@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.ojs/JQuery-zTree-v3.5.15tml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>微井大+后台管理</title>
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.5/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.3.5/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="js/JQuery-zTree-v3.5.15/css/zTreeStyle/zTreeStyle.css">
+    <script type="text/javascript" src="js/jquery-easyui-1.3.5/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/JQuery-zTree-v3.5.15/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/extends.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+
+</head>
+
+<body class="easyui-layout">
+    <div style="margin: 170px 500px;border: 2px">
+        <div id="p" class="easyui-panel" title="登陆" style="width:400px;height:300px;">
+            <form id="loginForm" method="post">
+                <div style="margin: 60px 84px">
+                <div style="margin-bottom:20px">
+                    账号：<input id="username" name="username" class="easyui-textbox" style="width:70%;height:28px"/>
+                </div>
+                <div style="margin-bottom:20px">
+                    密码：<input type="password" id="password" name="password" class="easyui-textbox" style="width:70%;height:28px"/>
+                </div>
+                <div>
+                    <a href="#" class="easyui-linkbutton" style="padding-left: 80px" onclick="login()">登陆</a>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 页脚信息 -->
+    <div data-options="region:'south',border:false" style="height:20px; background:#E6EEF8; padding:2px; vertical-align:middle;">
+        <span id="sysVersion">系统版本：V1.0</span>
+        <span id="nowTime"></span>
+    </div>
+    <script>
+        function login() {
+            $('#loginForm').form('submit',{
+                url:"/back/user/login.do",
+                dataType:"json",
+                success:function (data) {
+                    var data = eval('(' + data + ')');
+                    console.log(data);
+                    if(data.status=="0"){
+                        window.sessionStorage.setItem("loginName",data.data.loginName);
+                        window.sessionStorage.setItem("studentName",data.data.studentName);
+                        window.sessionStorage.setItem("loginStatus","1");
+                        window.location.href="/index.html";
+                    }else{
+                        $.messager.alert('Warning',data.msg);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

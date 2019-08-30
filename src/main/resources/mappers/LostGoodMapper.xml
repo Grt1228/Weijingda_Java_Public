@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jgsu.dao.LostGoodMapper" >
+  <resultMap id="BaseResultMap" type="com.jgsu.pojo.LostGood" >
+    <constructor >
+      <idArg column="pk_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="lost_good_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="openid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="adder_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="adder_mobile" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="good_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="good_detail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="good_position" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="good_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="good_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="image" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pk_id, lost_good_id, openid, adder_name, adder_mobile, good_title, good_detail, good_position, good_type,
+    good_status, status,image, create_time, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from lost_good
+    where lost_good_id = #{lostGoodId,jdbcType=BIGINT}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from lost_good
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jgsu.pojo.LostGood" >
+    insert into lost_good (pk_id, lost_good_id, openid,  adder_name,
+      adder_mobile,good_title, good_detail, good_position,
+      good_type, good_status, status, image,
+      create_time, modified_time)
+    values (#{pkId,jdbcType=BIGINT}, #{lostGoodId,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR},#{adderName,jdbcType=VARCHAR},
+      #{adderMobile,jdbcType=VARCHAR}, #{goodTitle,jdbcType=VARCHAR}, #{goodDetail,jdbcType=VARCHAR}, #{goodPosition,jdbcType=VARCHAR},
+      #{goodType,jdbcType=VARCHAR}, #{goodStatus,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR},
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.jgsu.pojo.LostGood" >
+    insert into lost_good
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        pk_id,
+      </if>
+      <if test="lostGoodId != null" >
+        lost_good_id,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="adderName != null" >
+        adder_name,
+      </if>
+      <if test="adderMobile != null" >
+        adder_mobile,
+      </if>
+      <if test="goodTitle != null" >
+        good_title,
+      </if>
+      <if test="goodDetail != null" >
+        good_detail,
+      </if>
+      <if test="goodPosition != null" >
+        good_position,
+      </if>
+      <if test="goodType != null" >
+        good_type,
+      </if>
+      <if test="goodStatus != null" >
+        good_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkId != null" >
+        #{pkId,jdbcType=BIGINT},
+      </if>
+      <if test="lostGoodId != null" >
+        #{lostGoodId,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="adderName != null" >
+        #{adderName,jdbcType=VARCHAR},
+      </if>
+      <if test="adderMobile != null" >
+        #{adderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="goodTitle != null" >
+        #{goodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDetail != null" >
+        #{goodDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPosition != null" >
+        #{goodPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="goodType != null" >
+        #{goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodStatus != null" >
+        #{goodStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="modifiedTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jgsu.pojo.LostGood" >
+    update lost_good
+    <set >
+      <if test="lostGoodId != null" >
+        lost_good_id = #{lostGoodId,jdbcType=VARCHAR},
+      </if>
+      <if test="adderName != null" >
+        adder_name = #{adderName,jdbcType=VARCHAR},
+      </if>
+      <if test="adderMobile != null" >
+        adder_mobile = #{adderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDetail != null" >
+        good_title = #{goodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodDetail != null" >
+        good_detail = #{goodDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodPosition != null" >
+        good_position = #{goodPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="goodType != null" >
+        good_type = #{goodType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodStatus != null" >
+        good_status = #{goodStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        status = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = now(),
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jgsu.pojo.LostGood" >
+    update lost_good
+    set lost_good_id = #{lostGoodId,jdbcType=VARCHAR},
+      adder_name = #{adderName,jdbcType=VARCHAR},
+      adder_mobile = #{adderMobile,jdbcType=VARCHAR},
+      good_title = #{goodTitle,jdbcType=VARCHAR},
+      good_detail = #{goodDetail,jdbcType=VARCHAR},
+      good_position = #{goodPosition,jdbcType=VARCHAR},
+      good_type = #{goodType,jdbcType=VARCHAR},
+      good_status = #{goodStatus,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+        image = #{image,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modified_time = now()
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectYesStatusLostGood" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from lost_good
+    WHERE status = #{status} order by modified_time desc
+  </select>
+
+  <select id="selectAllLostGood" resultMap="BaseResultMap" parameterType="com.jgsu.vo.LostGoodRequest" >
+    select
+    <include refid="Base_Column_List" />
+    from lost_good
+    <where>
+      <if test="status != null and status!=''" >
+        status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="openid != null and openid!=''" >
+        and openid = #{openid,jdbcType=VARCHAR}
+      </if>
+      <if test="goodType != null and goodType!=''" >
+        and good_type = #{goodType,jdbcType=VARCHAR}
+      </if>
+      <if test="goodStatus != null and goodStatus!=''" >
+        and good_status = #{goodStatus,jdbcType=VARCHAR}
+      </if>
+    </where>
+     order by modified_time desc
+  </select>
+
+  <update id="updateStatusByLostGoodId">
+    update lost_good
+    set
+      status = #{status,jdbcType=VARCHAR},
+      modified_time = now()
+    where lost_good_id = #{lostGoodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByLostGoodId" parameterType="com.jgsu.pojo.LostGood">
+    update lost_good
+    set
+      adder_name = #{adderName,jdbcType=VARCHAR},
+      adder_mobile = #{adderMobile,jdbcType=VARCHAR},
+      good_title = #{goodTitle,jdbcType=VARCHAR},
+      good_detail = #{goodDetail,jdbcType=VARCHAR},
+      good_position = #{goodPosition,jdbcType=VARCHAR},
+      good_type = #{goodType,jdbcType=VARCHAR},
+      good_status = #{goodStatus,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      modified_time = now()
+    where lost_good_id = #{lostGoodId,jdbcType=VARCHAR}
+  </update>
+</mapper>
