@@ -23,4 +23,4 @@
 
 ---
 ###### **欢迎关注个人微信公众号**：
-![26.6km](https://wjdgood.oss-cn-shanghai.aliyuncs.com/266km.png)
+![26.6km](https://wjdgood.oss-cn-shanghai.aliyuncs.com/qrcode_for_gh_0c045d619550_430.jpg)
