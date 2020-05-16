@@ -22,7 +22,6 @@
 
 🔲
 
-
 ---
 
 ### **欢迎star**，线上项目预览：
@@ -36,4 +35,6 @@
 
 ---
 ### **欢迎关注个人微信公众号**：
-![26.6km](https://wjdgood.oss-cn-shanghai.aliyuncs.com/qrcode_for_gh_0c045d619550_430.jpg)
+
+<img src="https://wjdgood.oss-cn-shanghai.aliyuncs.com/qrcode_for_gh_0c045d619550_430.jpg" height="180" width="180" >
+
