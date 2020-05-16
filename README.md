@@ -20,7 +20,7 @@
 - [x] - 校园留言板
 - [x] - 校园地图
 
-- [] - 空教室查询
+🔲
 
 
 ---
@@ -29,8 +29,9 @@
 
 > **微信端（QQ小程序同名搜索即可访问）**：
 
-![微井大微信](![](https://g-photo.oss-cn-shanghai.aliyuncs.com/gh_e6a721abc69c_430.jpg))
-![微井大QQ](https://g-photo.oss-cn-shanghai.aliyuncs.com/cbdf8e8ea6b70eaa886caa21e5b5759f.png)
+
+<img src="https://g-photo.oss-cn-shanghai.aliyuncs.com/gh_e6a721abc69c_430.jpg" height="120" width="120" >
+<img src="https://g-photo.oss-cn-shanghai.aliyuncs.com/cbdf8e8ea6b70eaa886caa21e5b5759f.png" height="120" width="120" >
 
 ---
 ### **欢迎关注个人微信公众号**：
