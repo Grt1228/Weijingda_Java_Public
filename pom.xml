@@ -22,7 +22,7 @@
     <!-- 文件拷贝时的编码 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- 编译时的编码 -->
-    <httpclient.version>4.4.1</httpclient.version>
+    <httpclient.version>4.5.13</httpclient.version>
     <docker.image.prefix>jgsu</docker.image.prefix>
   </properties>
 
